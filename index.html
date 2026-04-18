@@ -4,6 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+
+        // Configuration par défaut (denied par sécurité)
+        gtag('consent', 'default', {
+            'ad_storage': 'denied',
+            'ad_user_data': 'denied',
+            'ad_personalization': 'denied',
+            'analytics_storage': 'denied',
+            'wait_for_update': 500
+        });
+    </script>
     
     <title>Serrurier Paris — Dépannage Expert 24/7 | Intervention Rapide 30min</title>
     <meta name="description" content="Serrurier professionnel à Paris. Dépannage urgent 24h/24 : porte claquée, serrure A2P, blindage. Intervention certifiée en 30 minutes. Devis gratuit.">
@@ -13,13 +27,16 @@
 
     <style>
         :root {
-            /* PALETTE MODERNE ÉLECTRIQUE */
-            --primary: #2D5BFF; /* Bleu Électrique Moderne */
+            --primary: #2D5BFF;
             --accent: #1A3FB5;
-            --dark: #121212;    /* Noir Graphite */
-            --success: #00D084; /* Vert Néon Moderne (pour les numéros) */
+            --dark: #121212;
+            --success: #00D084;
             --light: #F8F9FA;
             --border: #EEEEEE;
+            --g-blue: #4285F4;
+            --g-red: #EA4335;
+            --g-yellow: #FBBC05;
+            --g-green: #34A853;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -43,75 +60,88 @@
         .nav-links a:hover { opacity: 1; color: var(--primary); }
 
         .header-cta { background: var(--success); color: var(--dark); padding: 12px 24px; border-radius: 8px; text-decoration: none; font-weight: 800; box-shadow: 0 4px 14px rgba(0, 208, 132, 0.2); transition: 0.3s; }
-        .header-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0, 208, 132, 0.3); }
 
-        .hero { padding: 160px 6% 100px; text-align: center; background: white; }
+        .hero { 
+            padding: 160px 6% 100px; 
+            text-align: center; 
+            background: linear-gradient(rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0.75)), url('paris.jpeg');
+            background-size: cover;
+            background-position: center;
+        }
         .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: var(--light); color: var(--dark); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; margin-bottom: 25px; border-left: 4px solid var(--primary); }
-        .hero-badge svg { width: 16px; height: 16px; fill: var(--primary); }
         .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); line-height: 1; margin-bottom: 25px; letter-spacing: -2px; }
         .hero h1 em { font-style: normal; color: var(--primary); }
-        .hero p { font-size: 1.25rem; max-width: 650px; margin: 0 auto 40px; color: #666; font-weight: 400; }
+        .hero p { font-size: 1.25rem; max-width: 650px; margin: 0 auto 40px; color: #121212; font-weight: 600; }
         .hero-actions { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
         
-        .btn-call { background: var(--success); color: var(--dark); padding: 20px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0, 208, 132, 0.2); transition: 0.3s; }
-        .btn-call svg { width: 20px; height: 20px; fill: var(--dark); }
-        .btn-call:hover { transform: scale(1.02); }
-        .btn-form { background: white; color: var(--dark); border: 1px solid var(--dark); padding: 20px 40px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1.1rem; transition: 0.3s; }
-        .btn-form:hover { background: var(--light); }
+        .btn-call { background: var(--success); color: var(--dark); padding: 20px 40px; border-radius: 10px; text-decoration: none; font-weight: 800; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(0, 208, 132, 0.2); }
+        .btn-form { background: white; color: var(--dark); border: 1px solid var(--dark); padding: 20px 40px; border-radius: 10px; text-decoration: none; font-weight: 700; font-size: 1.1rem; }
 
         .trust-bar { border-y: 1px solid var(--border); background: var(--light); padding: 25px 0; overflow: hidden; }
         .marquee { display: flex; animation: scroll 35s linear infinite; gap: 60px; }
-        .marquee span { font-weight: 700; color: #ADB5BD; font-size: 1rem; letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; }
-        .marquee span::before { content: ""; width: 6px; height: 6px; background: var(--primary); border-radius: 50%; }
+        .marquee img { height: 40px; width: auto; filter: grayscale(1); opacity: 0.7; }
 
         section { padding: 100px 6%; }
         .section-header { text-align: center; max-width: 800px; margin: 0 auto 60px; }
         .section-header h2 { font-size: 2.8rem; margin-bottom: 20px; letter-spacing: -1.5px; }
         
         .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
-        .s-card { background: white; border: 1px solid var(--border); padding: 0; border-radius: 12px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; display: flex; flex-direction: column; }
-        .s-card:hover { border-color: var(--primary); transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-        .s-card-img { width: 100%; height: 220px; object-fit: cover; filter: grayscale(20%); transition: 0.3s; }
-        .s-card:hover .s-card-img { filter: grayscale(0%); }
-        .s-card-content { padding: 30px; flex-grow: 1; display: flex; flex-direction: column; }
-        .price-label { background: var(--dark); color: white; padding: 6px 12px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px; align-self: flex-start; }
+        .s-card { background: white; border: 1px solid var(--border); border-radius: 12px; transition: 0.3s; overflow: hidden; display: flex; flex-direction: column; }
+        .s-card:hover { border-color: var(--primary); transform: translateY(-8px); }
+        .s-card-img { width: 100%; height: 220px; object-fit: cover; }
+        .s-card-content { padding: 30px; flex-grow: 1; }
+        .price-label { background: var(--dark); color: white; padding: 6px 12px; border-radius: 4px; font-weight: 700; font-size: 0.85rem; display: inline-block; margin-bottom: 20px; }
 
-        .reviews-section { background: var(--light); text-align: center; padding: 100px 6%; overflow: hidden; }
-        .review-container { max-width: 600px; margin: 0 auto; min-height: 250px; display: flex; align-items: center; justify-content: center; position: relative; }
-        .review-card { background: white; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid var(--border); width: 100%; transition: all 0.5s ease; position: absolute; opacity: 0; transform: translateX(30px); }
-        .review-card.active { opacity: 1; transform: translateX(0); position: relative; }
-        .stars-wrap { margin-bottom: 15px; display: flex; justify-content: center; gap: 4px; }
-        .stars-wrap svg { width: 18px; height: 18px; fill: var(--primary); }
-        .client-name { font-weight: 800; color: var(--dark); margin-top: 15px; display: block; font-family: 'Space Grotesk', sans-serif; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px; }
-        .review-text { font-weight: 400; color: #444; font-size: 1.1rem; }
+        .reviews-section { background: #fff; padding: 100px 6%; border-top: 1px solid #f0f0f0; }
+        .google-badge { display: flex; align-items: center; justify-content: center; gap: 15px; margin-bottom: 50px; }
+        .g-logo-wrap { display: flex; font-weight: 800; font-size: 1.8rem; }
+        .g-blue { color: var(--g-blue); } .g-red { color: var(--g-red); } .g-yellow { color: var(--g-yellow); } .g-green { color: var(--g-green); }
+        
+        .review-container { max-width: 1200px; margin: 0 auto; overflow: hidden; position: relative; }
+        .review-track { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); gap: 20px; }
+        .review-group { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; min-width: 100%; }
+        @media (max-width: 900px) { .review-group { grid-template-columns: 1fr; } }
+        
+        .review-card { background: #fff; padding: 30px; border-radius: 12px; border: 1px solid #eee; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
+        .stars-wrap { margin-bottom: 12px; display: flex; gap: 3px; }
+        .stars-wrap svg { width: 18px; height: 18px; fill: var(--g-yellow); }
+        .review-card p { font-size: 0.95rem; color: #444; min-height: 85px; }
+        .client-info { display: flex; align-items: center; gap: 10px; margin-top: 20px; border-top: 1px solid #f5f5f5; padding-top: 15px; }
+        .g-icon-small { width: 20px; height: 20px; }
+        .client-name { font-weight: 700; font-size: 0.9rem; color: var(--dark); }
+        .verified-tag { font-size: 0.75rem; color: var(--g-green); font-weight: 600; margin-left: auto; display: flex; align-items: center; gap: 4px; }
 
-        .contact-section { background: var(--dark); border-radius: 20px; padding: 60px; color: white; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 60px; align-items: center; }
-        .contact-info h2 { color: white; font-size: 2.5rem; letter-spacing: -1px; }
-        .contact-info p.check-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; opacity: 0.9; }
-        .contact-info p.check-item svg { width: 18px; height: 18px; fill: var(--success); }
-        .contact-form { background: #1E1E1E; padding: 40px; border-radius: 12px; }
-        .contact-form input, .contact-form select, .contact-form textarea { width: 100%; padding: 16px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; background: #121212; color: white; font-family: inherit; }
-        .contact-form input:focus { border-color: var(--primary); outline: none; }
-        .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 18px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
-        .submit-btn:hover { background: var(--accent); }
+        .contact-section { background: #121212; border-radius: 24px; padding: 70px 60px; color: white; display: grid; grid-template-columns: 1.2fr 1fr; gap: 60px; align-items: flex-start; box-shadow: 0 30px 60px rgba(0,0,0,0.15); }
+        .contact-info h2 { color: white; font-size: 2.8rem; letter-spacing: -1.5px; margin-bottom: 20px; }
+        .contact-info p { opacity: 0.8; font-size: 1.1rem; margin-bottom: 30px; }
+        .trust-badges { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 35px; }
+        .t-badge { background: rgba(255,255,255,0.05); padding: 12px 20px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1); display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 0.9rem; color: white; }
+        .t-badge svg { width: 20px; height: 20px; fill: var(--success); }
+        
+        .contact-form { background: #1E1E1E; padding: 40px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+        .contact-form h3 { color: white; margin-bottom: 25px; font-size: 1.4rem; border-bottom: 2px solid var(--primary); display: inline-block; padding-bottom: 5px; }
+        .contact-form input, .contact-form select, .contact-form textarea { width: 100%; padding: 16px; margin-bottom: 15px; border-radius: 8px; border: 1px solid #333; background: #121212; color: white; font-family: inherit; transition: 0.3s; }
+        .submit-btn { width: 100%; background: var(--primary); color: white; border: none; padding: 20px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 1.1rem; transition: 0.3s; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px; }
+
+        .zones-section { background: #fff; padding: 100px 6%; }
+        .zones-container { background: #fff; border-radius: 24px; padding: 70px 60px; color: var(--dark); display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: center; border: 1px solid var(--border); box-shadow: 0 10px 40px rgba(0,0,0,0.03); }
+        .zones-info h2 { color: var(--dark); font-size: 2.8rem; letter-spacing: -1.5px; margin-bottom: 20px; }
+        .zones-grid { display: flex; flex-wrap: wrap; gap: 10px; }
+        .zone-pill { display: inline-block; padding: 12px 24px; background: var(--light); border: 1px solid var(--border); border-radius: 12px; font-size: 0.95rem; font-weight: 600; color: var(--dark); transition: 0.3s; }
+        .zone-pill:hover { background: var(--primary); color: white; border-color: var(--primary); transform: translateY(-3px); }
 
         .faq-grid { max-width: 850px; margin: 0 auto; }
         details { border-bottom: 1px solid var(--border); padding: 25px 0; }
         summary { font-weight: 700; font-size: 1.2rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
         summary svg { width: 20px; height: 20px; transition: 0.3s; fill: var(--primary); }
-        details[open] summary svg { transform: rotate(45deg); }
 
-        .zone-pill { display: inline-block; padding: 10px 20px; background: white; border: 1px solid var(--border); border-radius: 4px; margin: 6px; font-size: 0.9rem; font-weight: 600; color: #444; transition: 0.2s; }
-        .zone-pill:hover { border-color: var(--dark); background: var(--dark); color: white; }
-
-        /* BOUTON FLOTTANT MODERNE */
-        .floating-action { position: fixed; bottom: 30px; right: 30px; background: var(--success); color: var(--dark); padding: 16px 32px; border-radius: 12px; text-decoration: none; font-weight: 800; z-index: 2000; display: flex; align-items: center; gap: 12px; box-shadow: 0 15px 35px rgba(0, 208, 132, 0.3); transition: 0.3s; }
-        .floating-action:hover { transform: translateY(-5px); }
+        .floating-action { position: fixed; bottom: 30px; right: 30px; background: var(--success); color: var(--dark); padding: 16px 32px; border-radius: 50px; text-decoration: none; font-weight: 800; z-index: 2000; display: flex; align-items: center; gap: 12px; box-shadow: 0 10px 30px rgba(0, 208, 132, 0.4); transition: 0.3s; }
         .dot { width: 8px; height: 8px; background: var(--dark); border-radius: 50%; animation: blink 1.5s infinite; }
 
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } .contact-section { padding: 30px; border-radius: 0; } }
+        @media (max-width: 1024px) { .contact-section, .zones-container { grid-template-columns: 1fr; padding: 40px; } }
+        @media (max-width: 768px) { .hero h1 { font-size: 2.5rem; } .contact-section, .zones-container { padding: 30px; border-radius: 0; border: none; box-shadow: none; } }
     </style>
 </head>
 <body>
@@ -123,7 +153,7 @@
         </a>
         <nav class="nav-links">
             <a href="#prestations">Services</a>
-            <a href="#avis">Avis</a>
+            <a href="#avis">Avis Clients</a>
             <a href="#zones">Zones</a>
             <a href="#faq">FAQ</a>
         </nav>
@@ -132,31 +162,30 @@
 
     <section class="hero">
         <div class="hero-badge">
-            <svg viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-            Disponible maintenant : Intervention 30 min
+            <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:var(--primary)"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Expert à Paris : Intervention 30 min
         </div>
-        <h1>Serrurier <em>Expert</em> à Paris <br>Dépannage Haute Sécurité</h1>
-        <p>Technologies de pointe et expertise artisanale pour toutes vos urgences de serrurerie 24h/24 et 7j/7.</p>
+        <h1>Serrurier <em>Expert</em> à Paris <br>Dépannage & Sécurité 24/7</h1>
+        <p>Une expertise artisanale au cœur de Paris pour toutes vos urgences et projets de sécurisation.</p>
         <div class="hero-actions">
             <a href="tel:0627558855" class="btn-call">
-                <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-                INTERVENTION IMMÉDIATE
+                <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:var(--dark)"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+                APPEL D'URGENCE
             </a>
-            <a href="#contact" class="btn-form">DEVIS SANS ENGAGEMENT</a>
+            <a href="#contact" class="btn-form">DEVIS GRATUIT</a>
         </div>
     </section>
 
     <div class="trust-bar">
         <div class="marquee">
-            <span>Certifié AXA</span><span>Allianz</span><span>Maif</span><span>Macif</span><span>Generali</span><span>Matmut</span><span>Groupama</span><span>Maaf</span>
-            <span>Certifié AXA</span><span>Allianz</span><span>Maif</span><span>Macif</span><span>Generali</span><span>Matmut</span><span>Groupama</span><span>Maaf</span>
+            <img src="axa.png" alt="AXA"><img src="Maaf.png" alt="MAAF"><img src="matmut.png" alt="Matmut"><img src="generali.png" alt="Generali"><img src="allianze.png" alt="Allianz"><img src="maif.png" alt="MAIF"><img src="macif.png" alt="Macif"><img src="groupama.png" alt="Groupama">
+            <img src="axa.png" alt="AXA"><img src="Maaf.png" alt="MAAF"><img src="matmut.png" alt="Matmut"><img src="generali.png" alt="Generali"><img src="allianze.png" alt="Allianz"><img src="maif.png" alt="MAIF"><img src="macif.png" alt="Macif"><img src="groupama.png" alt="Groupama">
         </div>
     </div>
 
     <section id="prestations">
         <div class="section-header">
             <h2>Prestations & Tarifs</h2>
-            <p>Une tarification transparente basée sur la grille tarifaire officielle du secteur.</p>
         </div>
         <div class="services-grid">
             <div class="s-card">
@@ -164,7 +193,7 @@
                 <div class="s-card-content">
                     <span class="price-label">Dès 50€</span>
                     <h3>Ouverture porte claquée</h3>
-                    <p>Ouverture technique non-destructive avec passage de radio. Rapide et propre.</p>
+                    <p>Technique de la radio pour une ouverture rapide sans abîmer la serrure.</p>
                 </div>
             </div>
             <div class="s-card">
@@ -172,23 +201,23 @@
                 <div class="s-card-content">
                     <span class="price-label">Dès 110€</span>
                     <h3>Ouverture porte fermée</h3>
-                    <p>Traitement des serrures verrouillées. Remplacement immédiat du cylindre si nécessaire.</p>
+                    <p>Intervention sur cylindre verrouillé. Matériel de précision haute sécurité.</p>
                 </div>
             </div>
             <div class="s-card">
                 <img src="serrure.jpeg" alt="Changement de Serrure" class="s-card-img">
                 <div class="s-card-content">
-                    <span class="price-label">Prix Constructeur</span>
+                    <span class="price-label">Certifié A2P</span>
                     <h3>Changement de Serrure</h3>
-                    <p>Pose de systèmes certifiés A2P : Fichet, Bricard, Vachette, Picard.</p>
+                    <p>Installation de serrures toutes marques (Fichet, Picard, Bricard, Vachette).</p>
                 </div>
             </div>
             <div class="s-card">
-                <img src="effraction.jpeg" alt="Mise en sécurité après effraction" class="s-card-img">
+                <img src="effraction.jpeg" alt="Mise en sécurité" class="s-card-img">
                 <div class="s-card-content">
                     <span class="price-label">Urgence Sinistre</span>
                     <h3>Sécurisation Post-Effraction</h3>
-                    <p>Mise en sécurité provisoire ou définitive après tentative de cambriolage.</p>
+                    <p>Mise en sécurité immédiate et fermeture provisoire après un cambriolage.</p>
                 </div>
             </div>
             <div class="s-card">
@@ -196,146 +225,163 @@
                 <div class="s-card-content">
                     <span class="price-label">Sur Mesure</span>
                     <h3>Blindage de Porte</h3>
-                    <p>Renforcement de la structure de votre porte avec plaques d'acier haute densité.</p>
+                    <p>Renforcement de porte existante et pose de cornières anti-pinces.</p>
                 </div>
             </div>
             <div class="s-card">
-                <img src="clefcasser.jpeg" alt="Extraction de clé cassée" class="s-card-img">
+                <img src="clefcasser.jpeg" alt="Extraction de clé" class="s-card-img">
                 <div class="s-card-content">
                     <span class="price-label">Dès 90€</span>
-                    <h3>Extraction de clé</h3>
-                    <p>Retrait de clés cassées ou coincées sans endommager le mécanisme interne.</p>
+                    <h3>Extraction de clé cassée</h3>
+                    <p>Retrait de morceau de clé coincé sans changer tout le barillet.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <section id="avis" class="reviews-section">
-        <div class="section-header">
-            <h2>Expériences Clients</h2>
-            <p>4.9/5 sur plus de 127 avis authentifiés.</p>
-        </div>
-        <div class="review-container" id="review-slider">
+        <div class="google-badge">
+            <div class="g-logo-wrap">
+                <span class="g-blue">G</span><span class="g-red">o</span><span class="g-yellow">o</span><span class="g-blue">g</span><span class="g-green">l</span><span class="g-red">e</span>
             </div>
-    </section>
-
-    <section id="contact">
-        <div class="contact-section">
-            <div class="contact-info">
-                <h2>Une question technique ?</h2>
-                <p>Nos experts sont à votre écoute pour vous conseiller sur le meilleur système de sécurité.</p>
-                <div style="margin-top:40px;">
-                    <p class="check-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <strong>Mobilité :</strong> Île-de-France</p>
-                    <p class="check-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <strong>Expertise :</strong> Certifié A2P</p>
-                    <p class="check-item"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> <strong>Assurance :</strong> Facture agrée</p>
-                </div>
-            </div>
-            <div class="contact-form">
-                <form action="https://formspree.io/f/ID_A_REMPLACER" method="POST">
-                    <input type="text" name="nom" placeholder="Nom complet" required>
-                    <input type="tel" name="tel" placeholder="Téléphone" required>
-                    <select name="besoin">
-                        <option value="Urgence">Urgences 24/7</option>
-                        <option value="Devis">Changement de cylindre</option>
-                        <option value="Blindage">Blindage de porte</option>
-                    </select>
-                    <textarea name="message" rows="3" placeholder="Votre message..."></textarea>
-                    <button type="submit" class="submit-btn">ENVOYER LA DEMANDE</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq">
-        <div class="section-header">
-            <h2>FAQ</h2>
-        </div>
-        <div class="faq-grid">
-            <details>
-                <summary>Délais d'intervention réels ? <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></summary>
-                <div style="padding-top:15px; color:#666;">Moins de 30 minutes sur Paris intra-muros grâce à notre réseau de techniciens géolocalisés.</div>
-            </details>
-            <details>
-                <summary>Comment fonctionne le remboursement assurance ? <svg viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></summary>
-                <div style="padding-top:15px; color:#666;">Nous vous remettons une facture détaillée incluant notre numéro de SIRET et l'agrément assurance pour votre dossier.</div>
-            </details>
-            <details>
-                <summary>Quelles garanties offrez-vous ? <svg viewBox="0 0 24 24"><path d="<i></i>M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg></summary>
-                <div style="padding-top:15px; color:#666;">Toutes nos poses de serrures et pièces détachées sont garanties 2 ans (pièces et main-d'œuvre).</div>
-            </details>
-        </div>
-    </section>
-
-    <section id="zones" style="text-align: center;">
-        <div class="section-header">
-            <h2>Secteurs d'Intervention</h2>
-        </div>
-        <div style="max-width: 1000px; margin: 0 auto;">
-            <span class="zone-pill">Paris (1-20)</span><span class="zone-pill">Boulogne</span><span class="zone-pill">Neuilly</span><span class="zone-pill">Levallois</span><span class="zone-pill">Nanterre</span><span class="zone-pill">Courbevoie</span><span class="zone-pill">Issy</span><span class="zone-pill">Vincennes</span><span class="zone-pill">Saint-Mandé</span><span class="zone-pill">Montreuil</span><span class="zone-pill">Saint-Denis</span><span class="zone-pill">Aubervilliers</span><span class="zone-pill">Ivry</span><span class="zone-pill">Vitry</span>
-        </div>
-    </section>
-
-    <footer style="background: #000; padding: 80px 6% 40px; color: #666; text-align: center;">
-        <div class="logo" style="color:white; justify-content:center; margin-bottom:30px;">
-            <svg class="logo-icon" style="fill:var(--primary);" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
-            Serrurier Paris Express
-        </div>
-        <p style="max-width: 600px; margin: 0 auto 40px;">Expertise technologique au service de votre sécurité. Intervention rapide sur toute la région parisienne.</p>
-        <div style="border-top: 1px solid #222; padding-top: 40px; font-size: 0.85rem;">
-            © 2026 Serrurier Paris - SIRET : 48983364000043 | Tous droits réservés.
-        </div>
-    </footer>
-
-    <a href="tel:0627558855" class="floating-action">
-        <div class="dot"></div>
-        <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-        <span>06 27 55 88 55</span>
-    </a>
-
-    <script>
-        const reviews = [
-            { name: "Sébastien M. (Paris 16)", text: "Incroyable, le serrurier est arrivé en 15 minutes chrono. Porte ouverte sans dommage. Merci !" },
-            { name: "Amélie J. (Boulogne)", text: "Super service. J'avais perdu mes clés à minuit, intervention rapide et prix très correct pour l'horaire." },
-            { name: "Robert F. (Paris 8)", text: "Très professionnel. Il a pris le temps de m'expliquer la différence entre les cylindres A2P. Très rassurant." },
-            { name: "Clara B. (Levallois)", text: "Porte blindée claquée... J'avais peur du prix mais la technique de la radio a fonctionné. Top !" },
-            { name: "Julien H. (Paris 11)", text: "Serrurier honnête, ce qui est rare à Paris. Devis clair avant de commencer les travaux." },
-            { name: "Nadine S. (Neuilly)", text: "Changement de serrure après un vol de sac. Technicien très humain et efficace." },
-            { name: "Karim A. (Paris 18)", text: "Sauvé d'une nuit dehors ! Clé cassée dans la serrure, extraite en 5 minutes. Travail de pro." },
-            { name: "Léa P. (Vincennes)", text: "Installation d'un verrou supplémentaire. Travail soigné et finitions impeccables. Je recommande." },
-            { name: "Michel T. (Paris 15)", text: "Agréablement surpris par la rapidité. On sent que ce sont des experts du quartier." },
-            { name: "Chloé D. (Issy)", text: "Facture acceptée par mon assurance sans souci. Pas de frais cachés, je suis ravie." },
-            { name: "Stéphane G. (Paris 4)", text: "Efficace et rapide même pendant les jours fériés. Un vrai service 24/7." },
-            { name: "Isabelle W. (Saint-Mandé)", text: "Très bon contact client. On se sent en confiance dès l'appel téléphonique." },
-            { name: "Pascal N. (Paris 17)", text: "Mise en sécurité rapide après une tentative d'effraction. Équipe très réactive." },
-            { name: "Emma B. (Montreuil)", text: "Le technicien était super sympa et a même réglé mes gonds gratuitement. Un grand merci !" },
-            { name: "Yassine K. (Paris 13)", text: "Meilleur prix trouvé après avoir appelé 3 agences. Qualité au rendez-vous." }
-        ];
-
-        let currentReview = 0;
-        const container = document.getElementById('review-slider');
-
-        function renderReview(index) {
-            container.innerHTML = `
-                <div class="review-card active">
-                    <div class="stars-wrap">
+            <div style="text-align:left;">
+                <div style="font-weight:800; font-size:1.1rem; color:var(--dark)">Avis Clients</div>
+                <div style="display:flex; align-items:center; gap:5px;">
+                    <span style="color:var(--g-yellow); font-weight:800;">4.9/5</span>
+                    <div class="stars-wrap" style="margin-bottom:0;">
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                         <svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
                     </div>
-                    <p class="review-text">"${reviews[index].text}"</p>
-                    <span class="client-name">${reviews[index].name}</span>
                 </div>
-            `;
+            </div>
+        </div>
+        <div class="review-container">
+            <div class="review-track" id="review-track"></div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="contact-section">
+            <div class="contact-info">
+                <h2>Votre Devis Gratuit <br>en 30 min</h2>
+                <p>Besoin de sécuriser votre domicile ou d'un dépannage ? Remplissez le formulaire et recevez une estimation précise par un artisan local.</p>
+                
+                <div class="trust-badges">
+                    <div class="t-badge"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Zéro Frais Cachés</div>
+                    <div class="t-badge"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Garantie 2 Ans</div>
+                    <div class="t-badge"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Agréé Assurances</div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>Formulaire de Demande</h3>
+                <form action="https://formspree.io/f/ID_A_REMPLACER" method="POST">
+                    <input type="text" name="nom" placeholder="Votre nom et prénom" required>
+                    <input type="tel" name="tel" placeholder="Numéro de téléphone (obligatoire)" required>
+                    <select name="besoin" required>
+                        <option value="" disabled selected>Nature de votre demande...</option>
+                        <option value="Urgence">Dépannage d'urgence</option>
+                        <option value="Serrure">Remplacement de serrure</option>
+                        <option value="Blindage">Blindage / Sécurisation</option>
+                        <option value="Autre">Autre projet</option>
+                    </select>
+                    <textarea name="message" rows="4" placeholder="Décrivez votre besoin..."></textarea>
+                    <button type="submit" class="submit-btn">Recevoir mon Devis</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="zones" class="zones-section">
+        <div class="zones-container">
+            <div class="zones-info">
+                <h2>Zones d'Intervention <br>Prioritaires</h2>
+                <p>Nos techniciens sont répartis stratégiquement pour garantir une arrivée en moins de 30 minutes sur l'ensemble de ces secteurs.</p>
+                <div class="trust-badges" style="margin-top:20px">
+                    <div class="t-badge" style="color:var(--dark); background:var(--light); border: 1px solid var(--border);"><svg viewBox="0 0 24 24" style="fill:var(--success)"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg> Proximité Réelle</div>
+                </div>
+            </div>
+            <div class="zones-grid">
+                <span class="zone-pill">Paris (Tous Arrondissements)</span>
+                <span class="zone-pill">Boulogne-Billancourt</span>
+                <span class="zone-pill">Neuilly-sur-Seine</span>
+                <span class="zone-pill">Levallois-Perret</span>
+                <span class="zone-pill">Nanterre</span>
+                <span class="zone-pill">Courbevoie</span>
+                <span class="zone-pill">Issy-les-Moulineaux</span>
+                <span class="zone-pill">Montreuil</span>
+                <span class="zone-pill">Saint-Denis</span>
+                <span class="zone-pill">Vincennes</span>
+                <span class="zone-pill">Aubervilliers</span>
+                <span class="zone-pill">Saint-Mandé</span>
+            </div>
+        </div>
+    </section>
+
+    <footer style="background: #000; padding: 60px 6% 40px; color: #666; text-align: center;">
+        <div class="logo" style="color:white; justify-content:center; margin-bottom:20px;">
+            <svg class="logo-icon" style="fill:var(--primary);" viewBox="0 0 24 24"><path d="M12.65 10C11.83 7.67 9.61 6 7 6c-3.31 0-6 2.69-6 6s2.69 6 6 6c2.61 0 4.83-1.67 5.65-4H17v4h4v-4h2v-4H12.65zM7 14c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/></svg>
+            Serrurier Paris Express
+        </div>
+        <p>© 2026 Serrurier Paris - SIRET : 48983364000043 | Tous droits réservés.</p>
+    </footer>
+
+    <a href="tel:0627558855" class="floating-action">
+        <div class="dot"></div>
+        <svg viewBox="0 0 24 24" style="width:20px;height:20px;fill:var(--dark)"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+        <span>06 27 55 88 55</span>
+    </a>
+
+    <script>
+        const reviews = [
+            { name: "Sébastien M.", text: "Incroyable, le serrurier est arrivé en 15 minutes chrono. Porte ouverte sans dommage. Merci !" },
+            { name: "Amélie J.", text: "Super service. J'avais perdu mes clés à minuit, intervention rapide et prix très correct pour l'horaire." },
+            { name: "Robert F.", text: "Très professionnel. Il a pris le temps de m'expliquer la différence entre les cylindres A2P. Très rassurant." },
+            { name: "Clara B.", text: "Porte blindée claquée... J'avais peur du prix mais la technique de la radio a fonctionné. Top !" },
+            { name: "Julien H.", text: "Serrurier honnête, ce qui est rare à Paris. Devis clair avant de commencer les travaux." },
+            { name: "Nadine S.", text: "Changement de serrure après un vol de sac. Technicien très humain et efficace." },
+            { name: "Karim A.", text: "Sauvé d'une nuit dehors ! Clé cassée dans la serrure, extraite en 5 minutes. Travail de pro." },
+            { name: "Léa P.", text: "Installation d'un verrou supplémentaire. Travail soigné et finitions impeccables. Je recommande." },
+            { name: "Michel T.", text: "Agréablement surpris par la rapidité. On sent que ce sont des experts du quartier." },
+            { name: "Chloé D.", text: "Facture acceptée par mon assurance sans souci. Pas de frais cachés, je suis ravie." },
+            { name: "Stéphane G.", text: "Efficace et rapide même pendant les jours fériés. Un vrai service 24/7." },
+            { name: "Isabelle W.", text: "Très bon contact client. On se sent en confiance dès l'appel téléphonique." },
+            { name: "Pascal N.", text: "Mise en sécurité rapide après une tentative d'effraction. Équipe très réactive." },
+            { name: "Emma B.", text: "Le technicien était super sympa et a même réglé mes gonds gratuitement. Un grand merci !" },
+            { name: "Yassine K.", text: "Meilleur prix trouvé après avoir appelé 3 agences. Qualité au rendez-vous." }
+        ];
+
+        const track = document.getElementById('review-track');
+        const starSvg = '<svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>';
+
+        function initReviews() {
+            for (let i = 0; i < reviews.length; i += 3) {
+                const group = document.createElement('div');
+                group.className = 'review-group';
+                group.innerHTML = reviews.slice(i, i + 3).map(r => `
+                    <div class="review-card">
+                        <div class="stars-wrap">${starSvg.repeat(5)}</div>
+                        <p>"${r.text}"</p>
+                        <div class="client-info">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" class="g-icon-small">
+                            <span class="client-name">${r.name}</span>
+                            <div class="verified-tag"><svg viewBox="0 0 24 24" style="width:14px;height:14px;fill:var(--g-green)"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>Vérifié</div>
+                        </div>
+                    </div>
+                `).join('');
+                track.appendChild(group);
+            }
         }
+        initReviews();
 
-        renderReview(currentReview);
-
+        let currentPos = 0;
         setInterval(() => {
-            currentReview = (currentReview + 1) % reviews.length;
-            renderReview(currentReview);
-        }, 4500); 
+            currentPos = (currentPos + 1) % (reviews.length / 3);
+            track.style.transform = `translateX(-${currentPos * 100}%)`;
+        }, 5000);
     </script>
 
 </body>
